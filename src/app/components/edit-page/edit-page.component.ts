@@ -1,14 +1,15 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { GrapesJsService } from '../../services/grapesjs.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import grapesjs from 'grapesjs';
 import 'grapesjs-tailwind';
 import { Page } from '../../models/page.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-page',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './edit-page.component.html',
   styleUrl: './edit-page.component.scss',
 })
@@ -22,7 +23,8 @@ export class EditPageComponent implements OnInit {
   constructor(
     private grapesjsService: GrapesJsService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -71,6 +73,10 @@ export class EditPageComponent implements OnInit {
       pages.push(updatedPage);
     }
     localStorage.setItem('pages', JSON.stringify(pages));
+    this.toastr.success('Success', 'Page saved successfully', {
+      timeOut: 3000,
+      progressBar: true,
+    });
   }
 
   loadPage(id: string): void {
