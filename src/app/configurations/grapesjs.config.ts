@@ -21,13 +21,14 @@ export const GrapesjsConfig = (grapesjsService: GrapesJsService) => {
     assetManager: {
       upload: `${environment.apiBaseUrl}/form/upload`,
       uploadFile: function (e: DragEvent | any) {
+        debugger;
         var files = e.dataTransfer ? e.dataTransfer.files : e.target.files;
         console.log(files);
         grapesjsService.uploadImage(files[0]).subscribe({
-          next: (response: ImageUploadResponse) => {
-            console.log(response.data);
+          next: (response: any) => {
+            console.log(response);
             const am = editor.AssetManager;
-            am.add(response.data); // Thêm tài sản vào Asset Manager
+            am.add(response); // Thêm tài sản vào Asset Manager
           },
           error: (error: HttpErrorResponse) => {
             console.log(error);

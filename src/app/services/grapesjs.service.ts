@@ -32,10 +32,10 @@ export class GrapesJsService {
     return pages.find((page) => page.id === id);
   }
 
-  uploadImage(file: File): Observable<ImageUploadResponse> {
+  uploadImage(file: File): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.post<ImageUploadResponse>(
+    return this.http.post<any>(
       'http://localhost:5000/api/v1/form/upload',
       formData
     );
