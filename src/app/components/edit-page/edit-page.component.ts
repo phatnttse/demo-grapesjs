@@ -5,6 +5,7 @@ import grapesjs from 'grapesjs';
 import 'grapesjs-tailwind';
 import { Page } from '../../models/page.model';
 import { ToastrService } from 'ngx-toastr';
+import { GrapesjsConfig } from '../../configurations/grapesjs.config';
 
 @Component({
   selector: 'app-edit-page',
@@ -28,25 +29,7 @@ export class EditPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.editor = grapesjs.init({
-      container: this.editorContainer.nativeElement,
-      plugins: ['grapesjs-tailwind'],
-      pluginsOpts: {
-        'grapesjs-tailwind': {
-          /* plugin options */
-        },
-      },
-      fromElement: true,
-      height: '100%',
-      width: 'auto',
-      storageManager: false,
-    });
-
-    this.editor.BlockManager.add('f2-svg', {
-      label: 'Custom-Logo-F2',
-      content: `<div class="logo"><a routerlink="/" href="/"><img src="http://f2tech.asia/assets/images/logo-F2.png" alt="Logo F2 tech"></a></div>`,
-      category: 'Custom',
-    });
+    this.editor = GrapesjsConfig(this.grapesjsService);
 
     this.route.paramMap.subscribe((params) => {
       this.pageId = params.get('id');
@@ -66,6 +49,7 @@ export class EditPageComponent implements OnInit {
     const pageIndex = pages.findIndex(
       (page: any) => page.id === updatedPage.id
     );
+    console.log('Page:', updatedPage);
 
     if (pageIndex !== -1) {
       pages[pageIndex] = updatedPage;
@@ -80,11 +64,11 @@ export class EditPageComponent implements OnInit {
   }
 
   loadPage(id: string): void {
-    debugger;
     const page = this.grapesjsService.getPageById(id);
     if (page) {
       this.page = page;
       this.editor.setComponents(page.content);
+      console.log('Data:', page.content);
     }
   }
 }

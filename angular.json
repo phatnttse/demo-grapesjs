@@ -30,7 +30,7 @@
               }
             ],
             "styles": ["src/styles.scss", "node_modules/ngx-toastr/toastr.css"],
-            "scripts": ["src/assets/js/grapesjsConfig.js"]
+            "scripts": []
           },
           "configurations": {
             "production": {
