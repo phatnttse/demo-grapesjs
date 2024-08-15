@@ -36,7 +36,7 @@ export class GrapesJsService {
     const formData = new FormData();
     formData.append('file', file);
     return this.http.post<any>(
-      'http://localhost:5000/api/v1/form/upload',
+      'http://localhost:7191/api/v1/form/upload',
       formData
     );
   }
