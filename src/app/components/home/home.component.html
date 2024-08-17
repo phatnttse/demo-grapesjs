@@ -28,7 +28,7 @@
           <a
             class="text-indigo-500 inline-flex items-center"
             href="javascript:void(0)"
-            (click)="editPage(page.id)"
+            (click)="openEdPage(page.id)"
             >Edit Page<svg
               fill="none"
               stroke="currentColor"
@@ -62,8 +62,41 @@
         </div>
         }
       </div>
+      @if (openCreatePage) {
+      <div class="full-screen-overlay">
+        @if (loading) {
+        <div class="spinner-container">
+          <div class="spinner"></div>
+        </div>
+        } @if (createPageUrl) {
+        <iframe
+          [src]="createPageUrl"
+          class="full-screen-iframe"
+          (load)="onIframeLoad()"
+          allowfullscreen
+        ></iframe>
+        <button class="close-button" (click)="closeCreatePage()">X</button>
+        }
+      </div>
+      } @else if (openEditPage) {
+      <div class="full-screen-overlay">
+        @if (loading) {
+        <div class="spinner-container">
+          <div class="spinner"></div>
+        </div>
+        } @if (editPageUrl) {
+        <iframe
+          [src]="editPageUrl"
+          class="full-screen-iframe"
+          (load)="onIframeLoad()"
+          allowfullscreen
+        ></iframe>
+        <button class="close-button" (click)="closeEditPage()">X</button>
+        }
+      </div>
+      }
       <button
-        routerLink="/create-page"
+        (click)="openCrPage()"
         class="flex mx-auto mt-16 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
       >
         Tạo trang mới
